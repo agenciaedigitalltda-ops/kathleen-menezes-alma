@@ -106,14 +106,7 @@ window.APP_CONFIG = {
     },
     carrossel: { selo: "ALMA", titulo: "Um pouco do nosso trabalho", segundos: 3.5 },
     /* RASCUNHOS — conferir e ajustar com a Kathleen */
-    comoFunciona: {
-      selo: "Como funciona",
-      titulo: "Do primeiro contato às suas fotos",
-      passos: [
-        { titulo: "Você chama no WhatsApp", texto: "Conta com quantas semanas está e eu envio valores e datas disponíveis." },
-        { titulo: "A gente combina os detalhes", texto: "Escolhemos a data e conversamos sobre looks e referências para o ensaio ter a sua cara." },
-        { titulo: "Ensaio e entrega das fotos", texto: "No dia, eu te oriento do começo ao fim. Depois, você recebe as fotos editadas." }
-      ],
+    comoFunciona: {   // só a caixa "O que está incluso" (os 3 passos foram removidos)
       incluso: {
         titulo: "O que está incluso",
         itens: ["Direção de poses durante todo o ensaio", "Fotos tratadas e editadas", "Orientação sobre looks e referências"]

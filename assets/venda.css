@@ -114,3 +114,34 @@
 .v-faq-item summary::after { content: "+"; flex: none; font: 300 28px/1 var(--sans); color: var(--accent); transition: transform .25s; }
 .v-faq-item[open] summary::after { transform: rotate(45deg); }
 .v-faq-item .v-texto { margin: 0 0 20px; font-size: 16px; }
+
+/* =====================================================================
+   EXPERIÊNCIA IMERSIVA — entrada da abertura e aparecer ao rolar
+   ===================================================================== */
+html { scroll-behavior: smooth; }
+
+/* abertura: a foto surge devagar e o texto entra em sequência */
+.venda-page .v-hero .wc-photo { animation: v-foto-in 2.6s cubic-bezier(.2, .7, .2, 1) both; }
+.venda-page .v-hero .wc-content > * { animation: v-sobe 1.1s cubic-bezier(.2, .7, .2, 1) both; }
+.venda-page .v-hero .wc-content > :nth-child(1) { animation-delay: .5s; }
+.venda-page .v-hero .wc-content > :nth-child(2) { animation-delay: .75s; }
+.venda-page .v-hero .wc-content > :nth-child(3) { animation-delay: 1.05s; }
+.venda-page .v-hero .wc-content > :nth-child(4) { animation-delay: 1.25s; }
+@keyframes v-foto-in { from { opacity: 0; scale: 1.12; } to { opacity: 1; scale: 1; } }
+@keyframes v-sobe { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+
+/* aparecer ao rolar (só quando o navegador suporta e a pessoa não pediu menos movimento) */
+.fx .rev { opacity: 0; transform: translateY(30px); transition: opacity 1.1s cubic-bezier(.2, .7, .2, 1) var(--d, 0s), transform 1.1s cubic-bezier(.2, .7, .2, 1) var(--d, 0s); }
+.fx .rev.in { opacity: 1; transform: none; }
+/* a foto dela se revela de baixo para cima, com um zoom leve */
+.fx .v-sobre-foto.rev { opacity: 1; transform: none; clip-path: inset(100% 0 0 0 round 14px); transition: clip-path 1.5s cubic-bezier(.2, .7, .2, 1); }
+.fx .v-sobre-foto.rev.in { clip-path: inset(0 0 0 0 round 14px); }
+.fx .v-sobre-foto.rev img, .fx .v-sobre-foto.rev > div { scale: 1.2; transition: scale 2s cubic-bezier(.2, .7, .2, 1); }
+.fx .v-sobre-foto.rev.in img, .fx .v-sobre-foto.rev.in > div { scale: 1; }
+/* a faixa entra deslizando, sem subir */
+.fx .v-faixa.rev { transform: none; }
+
+/* carrossel: a foto do meio em destaque, as outras mais suaves */
+.v-car .trilho > div { transition: opacity .7s ease, scale .7s ease; }
+.v-car .trilho > div.off { opacity: .42; scale: .94; }
+@media (prefers-reduced-motion: reduce) { .v-car .trilho > div { transition: none; } .v-car .trilho > div.off { opacity: 1; scale: 1; } }
