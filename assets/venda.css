@@ -1,0 +1,71 @@
+/* =====================================================================
+   PÁGINA DE VENDA — seções abaixo da abertura (usa as cores de config.js → tema)
+   ===================================================================== */
+.venda-page { overflow-x: hidden; }
+.venda-page .v-hero.step { min-height: 100svh; }
+
+/* ---------- faixa passando ---------- */
+.v-faixa { background: var(--ink); color: var(--bg-2); overflow: hidden; white-space: nowrap; padding: 18px 0; }
+.v-faixa-track { display: flex; width: max-content; animation: v-corre 32s linear infinite; }
+.v-faixa .it { display: inline-flex; align-items: center; gap: 20px; padding: 0 20px; font: 600 13px/1 var(--sans); letter-spacing: 3px; text-transform: uppercase; }
+.v-faixa .it::after { content: "◆"; font-size: 9px; opacity: .55; }
+@keyframes v-corre { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .v-faixa-track { animation: none; } }
+
+/* ---------- apresentação da fotógrafa ---------- */
+.v-sobre { max-width: 1040px; margin: 0 auto; padding: 72px 22px 56px; display: grid; gap: 30px; align-items: center; }
+.v-eyebrow { margin: 0 0 14px; font: 600 12px/1 var(--sans); letter-spacing: 3px; text-transform: uppercase; color: var(--accent); }
+.v-titulo { margin: 0 0 16px; font: 500 clamp(28px, 6.4vw, 40px)/1.15 var(--display); }
+.v-texto { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.65; max-width: 46ch; }
+.v-sobre-foto { position: relative; aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden; background: var(--surface); width: 100%; max-width: 440px; margin: 0 auto; }
+.v-sobre-foto img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.v-sobre-foto.vazio { border: 1px dashed var(--line); display: grid; place-items: center; text-align: center; color: var(--faint); font: 500 13px/1.4 var(--sans); letter-spacing: 1px; }
+.v-sobre-foto.vazio svg { width: 34px; height: 34px; display: block; margin: 0 auto 10px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+@media (min-width: 800px) {
+  .v-sobre { grid-template-columns: 420px 1fr; gap: 64px; padding: 110px 24px 90px; }
+  .v-sobre-foto { margin: 0; }
+}
+
+/* ---------- carrossel de fotos ---------- */
+.v-fotos { max-width: 1132px; margin: 0 auto; padding: 24px 0 36px; }
+.v-fotos-topo { text-align: center; padding: 0 20px 28px; }
+.v-car { --vis: 1; padding: 0 20px; }
+@media (min-width: 720px) { .v-car { --vis: 3; } }
+.v-car .janela { overflow: hidden; }
+.v-car .trilho { display: flex; gap: 16px; will-change: transform; }
+.v-car .trilho > div { flex: 0 0 calc((100% - (var(--vis) - 1) * 16px) / var(--vis)); aspect-ratio: 2 / 3; border-radius: 12px; overflow: hidden; background: var(--surface); }
+.v-car img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; -webkit-user-drag: none; }
+.v-car .ctrl { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; gap: 16px; }
+.v-car .pontos { display: flex; gap: 8px; flex-wrap: wrap; }
+.v-car .pontos button { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 99px; cursor: pointer; background: var(--line); transition: width .3s, background .3s; }
+.v-car .pontos button.on { width: 22px; background: var(--ink); }
+.v-car .setas { display: flex; gap: 8px; }
+.v-car .setas button { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; display: grid; place-items: center; }
+.v-car .setas svg { width: 22px; height: 22px; fill: currentColor; }
+
+/* ---------- chamada final ---------- */
+.v-fim { text-align: center; padding: 28px 22px 130px; }
+.v-fim .v-texto { margin: 0 auto 26px; }
+
+/* ---------- botão de WhatsApp flutuante ---------- */
+.v-flutuante {
+  position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 50;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; padding: 0 24px; border-radius: 999px;
+  background: var(--btn-1); color: var(--btn-ink); font: 600 15px/1 var(--sans); text-decoration: none;
+  opacity: 0; transform: translateY(18px); pointer-events: none; transition: opacity .35s, transform .35s;
+  animation: v-pulso 1.9s ease-in-out infinite;
+}
+.v-flutuante.on { opacity: 1; transform: none; pointer-events: auto; }
+.v-flutuante svg { width: 22px; height: 22px; fill: currentColor; flex: none; }
+@keyframes v-pulso {
+  0%   { box-shadow: 0 10px 30px rgba(0, 0, 0, .55), 0 0 0 0 color-mix(in srgb, var(--btn-1) 60%, transparent); }
+  70%  { box-shadow: 0 10px 30px rgba(0, 0, 0, .55), 0 0 0 16px color-mix(in srgb, var(--btn-1) 0%, transparent); }
+  100% { box-shadow: 0 10px 30px rgba(0, 0, 0, .55), 0 0 0 0 color-mix(in srgb, var(--btn-1) 0%, transparent); }
+}
+@media (max-width: 560px) { .v-flutuante { left: 18px; right: 18px; } }
+@media (prefers-reduced-motion: reduce) { .v-flutuante { animation: none; } }
+
+/* ---------- botões: mesma fonte do texto (Manrope), cantos quadrados e ícone do WhatsApp ---------- */
+.venda-page .btn, .v-flutuante { border-radius: 6px; font-family: var(--sans); font-weight: 600; font-size: 16px; letter-spacing: .2px; }
+.venda-page .btn-lg { min-height: 58px; padding: 0 30px; }
+.venda-page .btn svg { width: 22px; height: 22px; fill: currentColor; flex: none; }
