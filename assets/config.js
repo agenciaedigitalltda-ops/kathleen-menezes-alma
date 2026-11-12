@@ -105,6 +105,34 @@ window.APP_CONFIG = {
       texto: "Sou fotógrafa de gestantes. O ALMA nasceu para registrar a mulher que gera uma vida: com direção leve, sensibilidade e todo o cuidado que esse momento merece."   // EDITAR: breve apresentação
     },
     carrossel: { selo: "ALMA", titulo: "Um pouco do nosso trabalho", segundos: 3.5 },
+    /* RASCUNHOS — conferir e ajustar com a Kathleen */
+    comoFunciona: {
+      selo: "Como funciona",
+      titulo: "Do primeiro contato às suas fotos",
+      passos: [
+        { titulo: "Você chama no WhatsApp", texto: "Conta com quantas semanas está e eu envio valores e datas disponíveis." },
+        { titulo: "A gente combina os detalhes", texto: "Escolhemos a data e conversamos sobre looks e referências para o ensaio ter a sua cara." },
+        { titulo: "Ensaio e entrega das fotos", texto: "No dia, eu te oriento do começo ao fim. Depois, você recebe as fotos editadas." }
+      ],
+      incluso: {
+        titulo: "O que está incluso",
+        itens: ["Direção de poses durante todo o ensaio", "Fotos tratadas e editadas", "Orientação sobre looks e referências"]
+      }
+    },
+    prova: {   // prints de depoimentos: coloque os arquivos em assets/fotos/provas/ e liste aqui. Vazio = espaço reservado (só aparece no modo revisão)
+      selo: "Depoimentos",
+      titulo: "Quem já viveu o ALMA",
+      imagens: []   // ex.: ["assets/fotos/provas/01.jpg", "assets/fotos/provas/02.jpg"]
+    },
+    faq: {
+      selo: "Dúvidas",
+      titulo: "Perguntas frequentes",
+      itens: [
+        { p: "Com quantas semanas posso fazer o ensaio?", r: "Em geral, entre a 28ª e a 36ª semana, quando a barriga está mais marcada. Me chama e a gente escolhe a melhor data para você." },
+        { p: "Nunca fiz um ensaio, preciso saber posar?", r: "Não precisa. Eu te oriento durante todo o ensaio, do começo ao fim." },
+        { p: "Posso levar meu parceiro ou outros filhos?", r: "Pode, se você quiser. É só me avisar antes para eu organizar o ensaio." }
+      ]
+    },
     fim: { titulo: "Vamos registrar a sua história?", texto: "Me chama no WhatsApp e eu te envio valores e datas disponíveis." }
   },
 
