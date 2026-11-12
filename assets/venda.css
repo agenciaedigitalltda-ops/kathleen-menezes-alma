@@ -80,20 +80,8 @@
 }
 @media (prefers-reduced-motion: reduce) { .venda-page .v-hero .btn-primary, .venda-page .v-fim .btn-primary { animation: none; } }
 
-/* ---------- como funciona + o que está incluso ---------- */
+/* ---------- título de seção ---------- */
 .v-topo-sec { text-align: center; padding: 0 0 26px; }
-.v-como { max-width: 760px; margin: 0 auto; padding: 56px 22px 28px; }
-.v-passos { list-style: none; margin: 0; padding: 0; }
-.v-passo { display: flex; gap: 20px; align-items: flex-start; padding: 22px 0; border-top: 1px solid var(--line); }
-.v-passo:last-child { border-bottom: 1px solid var(--line); }
-.v-passo-n { flex: none; width: 52px; font: 500 40px/1 var(--display); color: var(--accent); }
-.v-passo-t { margin: 0 0 6px; font: 500 21px/1.25 var(--display); }
-.v-passo .v-texto { font-size: 16px; }
-.v-incluso { margin-top: 30px; padding: 24px 22px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
-.v-incluso-t { margin: 0 0 14px; font: 600 12px/1 var(--sans); letter-spacing: 3px; text-transform: uppercase; color: var(--accent); }
-.v-incluso ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-.v-incluso li { display: flex; gap: 12px; align-items: flex-start; font-size: 16px; line-height: 1.45; }
-.v-incluso li svg { width: 22px; height: 22px; flex: none; fill: var(--ink); margin-top: 1px; }
 
 /* ---------- prova (depoimentos) ---------- */
 .v-prova { max-width: 1132px; margin: 0 auto; padding: 48px 0 28px; }
@@ -145,3 +133,10 @@ html { scroll-behavior: smooth; }
 .v-car .trilho > div { transition: opacity .7s ease, scale .7s ease; }
 .v-car .trilho > div.off { opacity: .42; scale: .94; }
 @media (prefers-reduced-motion: reduce) { .v-car .trilho > div { transition: none; } .v-car .trilho > div.off { opacity: 1; scale: 1; } }
+
+/* ---------- barra de foto de ponta a ponta (a foto desce dentro dela ao rolar) ---------- */
+.v-banda { position: relative; width: 100%; height: clamp(260px, 46vh, 520px); overflow: hidden; background: var(--surface); margin: 8px 0; }
+.v-banda img { position: absolute; left: 0; top: -20%; width: 100%; height: 140%; object-fit: cover; object-position: var(--pos, 50% 40%); translate: 0 0; will-change: translate; user-select: none; -webkit-user-drag: none; }
+.v-banda::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(0, 0, 0, .45), transparent 28%, transparent 72%, rgba(0, 0, 0, .45)); }
+.fx .v-banda.rev { transform: none; }
+@media (prefers-reduced-motion: reduce) { .v-banda img { top: 0; height: 100%; } }

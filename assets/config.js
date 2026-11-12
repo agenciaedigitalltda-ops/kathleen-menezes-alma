@@ -106,12 +106,10 @@ window.APP_CONFIG = {
     },
     carrossel: { selo: "ALMA", titulo: "Um pouco do nosso trabalho", segundos: 3.5 },
     /* RASCUNHOS — conferir e ajustar com a Kathleen */
-    comoFunciona: {   // só a caixa "O que está incluso" (os 3 passos foram removidos)
-      incluso: {
-        titulo: "O que está incluso",
-        itens: ["Direção de poses durante todo o ensaio", "Fotos tratadas e editadas", "Orientação sobre looks e referências"]
-      }
-    },
+    bandas: [   // barras de foto de ponta a ponta: a foto "desce" dentro da barra conforme a página rola
+      { id: "depoisDaFaixa",     foto: "assets/fotos/carrossel/05.jpg?v=202611131700", posicao: "50% 17%" },
+      { id: "antesDasPerguntas", foto: "assets/fotos/carrossel/03.jpg?v=202611131700", posicao: "50% 19%" }
+    ],
     prova: {   // prints de depoimentos: coloque os arquivos em assets/fotos/provas/ e liste aqui. Vazio = espaço reservado (só aparece no modo revisão)
       selo: "Depoimentos",
       titulo: "Quem já viveu o ALMA",
