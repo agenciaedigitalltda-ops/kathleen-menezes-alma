@@ -8,8 +8,8 @@
   <title>ALMA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="assets/style.css?v=202611131300">
-  <link rel="stylesheet" href="assets/venda.css?v=202611131300">
+  <link rel="stylesheet" href="assets/style.css?v=202611131700">
+  <link rel="stylesheet" href="assets/venda.css?v=202611131700">
 </head>
 <body class="venda-page">
   <main id="pagina"></main>
@@ -20,8 +20,8 @@
 
   <p class="load-fail" id="load-fail" hidden>Não foi possível carregar os arquivos da pasta <b>assets/</b>. Confira se ela foi enviada junto com as páginas e abra a página em um navegador normal.</p>
   <script>setTimeout(function(){ if(!window.LP||!window.APP_CONFIG){ var e=document.getElementById('load-fail'); e.hidden=false; e.style.cssText='font:16px/1.5 system-ui,sans-serif;max-width:480px;margin:40px auto;padding:16px;border:1px solid #d33;border-radius:10px;color:#222;background:#fff'; } }, 1500);</script>
-  <script src="assets/config.js?v=202611131300"></script>
-  <script src="assets/common.js?v=202611131300"></script>
+  <script src="assets/config.js?v=202611131700"></script>
+  <script src="assets/common.js?v=202611131700"></script>
   <script>
     (function () {
       var LP = window.LP, C = LP.config, el = LP.el, V = C.venda || {};
@@ -53,6 +53,27 @@
         return s;
       }
 
+      /* ----- Barras de foto (a foto desce dentro da barra ao rolar) ----- */
+      var bandasPx = [];
+      function banda(id) {
+        var B = (V.bandas || []).filter(function (x) { return x.id === id; })[0];
+        if (!B || !B.foto) return null;
+        var img = el('img', { src: B.foto, alt: '', loading: 'lazy', draggable: 'false', style: '--pos:' + (B.posicao || '50% 40%') });
+        var box = el('div', { class: 'v-banda', 'aria-hidden': 'true' }, [img]);
+        bandasPx.push({ box: box, img: img });
+        return box;
+      }
+      function moverBandas() {
+        var vh = window.innerHeight;
+        bandasPx.forEach(function (b) {
+          var r = b.box.getBoundingClientRect();
+          if (r.bottom < -50 || r.top > vh + 50) return;
+          var p = (vh - r.top) / (vh + r.height);          // 0 = entrando por baixo, 1 = saindo por cima
+          p = Math.max(0, Math.min(1, p));
+          b.img.style.translate = '0 ' + ((p - 0.5) * 2 * r.height * 0.2).toFixed(1) + 'px';
+        });
+      }
+
       /* ----- 1. Abertura ----- */
       var central = BV.fotoCentral; if (typeof central === 'string') central = { src: central };
       var heroBtn = botaoWa('btn btn-primary btn-lg', [iconeWa(), V.botao || 'Quero essa experiência'], 'hero');
@@ -75,6 +96,8 @@
         var itens = meio.concat(meio).map(function (t) { return el('span', { class: 'it', text: t }); });
         root.appendChild(el('div', { class: 'v-faixa', 'aria-hidden': 'true' }, [el('div', { class: 'v-faixa-track' }, itens)]));
       }
+
+      var b1 = banda('depoisDaFaixa'); if (b1) root.appendChild(b1);
 
       /* ----- 3. Apresentação da fotógrafa ----- */
       var F = V.fotografa || {};
@@ -117,36 +140,13 @@
           { intervalo: (K.segundos || 3.5) * 1000, velocidade: 500 });
       }
 
-      /* ----- 4b. Como funciona + o que está incluso ----- */
+      /* ----- 4b. Título de seção (usado por prova e perguntas) ----- */
       function topoSec(selo, titulo) {
         return el('div', { class: 'v-topo-sec' }, [
           selo ? el('p', { class: 'v-eyebrow', text: selo }) : null,
           titulo ? el('h2', { class: 'v-titulo', text: titulo, style: 'margin:0' }) : null
         ]);
       }
-      var CF = V.comoFunciona;
-      if (CF && (CF.passos || []).length) {
-        var passos = CF.passos.map(function (p, i) {
-          return el('li', { class: 'v-passo' }, [
-            el('span', { class: 'v-passo-n', text: '0' + (i + 1) }),
-            el('div', {}, [el('h3', { class: 'v-passo-t', text: p.titulo }), p.texto ? el('p', { class: 'v-texto', text: p.texto }) : null])
-          ]);
-        });
-        var inc = null;
-        if (CF.incluso && (CF.incluso.itens || []).length) {
-          inc = el('div', { class: 'v-incluso' }, [
-            el('h3', { class: 'v-incluso-t', text: CF.incluso.titulo || 'O que está incluso' }),
-            el('ul', {}, CF.incluso.itens.map(function (t) {
-              var li = el('li', {});
-              li.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2L5.8 12.5l-1.4 1.4 5.1 5.1L20 8.5l-1.4-1.4z"/></svg>';
-              li.appendChild(document.createTextNode(t));
-              return li;
-            }))
-          ]);
-        }
-        root.appendChild(el('section', { class: 'v-como' }, [topoSec(CF.selo, CF.titulo), el('ol', { class: 'v-passos' }, passos), inc]));
-      }
-
       /* ----- 4c. Prova (prints de depoimentos) ----- */
       var PR = V.prova;
       if (PR) {
@@ -162,6 +162,8 @@
           root.appendChild(el('section', { class: 'v-prova' }, [topoSec(PR.selo, PR.titulo), el('div', { class: 'v-prova-fila' }, itensProva)]));
         }
       }
+
+      var b2 = banda('antesDasPerguntas'); if (b2) root.appendChild(b2);
 
       /* ----- 4d. Perguntas frequentes ----- */
       var FQ = V.faq;
@@ -194,6 +196,50 @@
         } else flut.classList.add('on');
       }
 
+
+      /* ----- Efeitos: entrada da abertura, aparecer ao rolar e profundidade ----- */
+      var calmo = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!calmo && 'IntersectionObserver' in window) {
+        document.documentElement.classList.add('fx');
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+        function revelar(lista, passo) {
+          [].forEach.call(lista, function (n, i) {
+            n.classList.add('rev'); n.style.setProperty('--d', ((passo || 0.12) * i).toFixed(2) + 's'); io.observe(n);
+          });
+        }
+        revelar(document.querySelectorAll('.v-faixa'));
+        revelar(document.querySelectorAll('.v-banda'));
+        revelar(document.querySelectorAll('.v-sobre-foto'));
+        revelar(document.querySelectorAll('.v-sobre > div:last-child > *'), 0.14);
+        revelar(document.querySelectorAll('.v-fotos-topo > *'), 0.12);
+        revelar(document.querySelectorAll('.v-car'));
+        revelar(document.querySelectorAll('.v-topo-sec > *'), 0.12);
+        revelar(document.querySelectorAll('.v-prova-item'), 0.14);
+        revelar(document.querySelectorAll('.v-faq-item'), 0.12);
+        revelar(document.querySelectorAll('.v-fim > *'), 0.14);
+
+        // a foto da abertura se mexe mais devagar que a página (profundidade)
+        var foto = hero.querySelector('.wc-photo'), ticking = false;
+        if (foto) window.addEventListener('scroll', function () {
+          if (ticking) return; ticking = true;
+          requestAnimationFrame(function () {
+            var y = window.scrollY; ticking = false;
+            if (y < window.innerHeight * 1.2) foto.style.translate = '0 ' + (y * 0.22).toFixed(1) + 'px';
+          });
+        }, { passive: true });
+      }
+
+      if (bandasPx.length) {
+        var calmoB = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches, tk = false;
+        if (!calmoB) {
+          var rodar = function () { if (tk) return; tk = true; requestAnimationFrame(function () { tk = false; moverBandas(); }); };
+          window.addEventListener('scroll', rodar, { passive: true }); window.addEventListener('resize', rodar);
+          moverBandas();
+        }
+      }
+
       LP.renderBrand(root);
       LP.fitText(root.querySelectorAll('[data-fit]'));
       window.addEventListener('resize', function () { LP.fitText(root.querySelectorAll('[data-fit]')); });
@@ -206,9 +252,14 @@
         function calcVis() { return parseInt(getComputedStyle(box).getPropertyValue('--vis')) || 1; }
         function passo() { return trilho.children[0].offsetWidth + 16; }
         function real() { return (((indice - vis) % TOTAL) + TOTAL) % TOTAL; }
+        function foco() {
+          var c = indice + Math.floor(vis / 2);
+          for (var k = 0; k < trilho.children.length; k++) trilho.children[k].classList.toggle('off', k !== c);
+        }
         function aplicar(animar) {
           trilho.style.transition = animar ? 'transform ' + o.velocidade + 'ms ease' : 'none';
           trilho.style.transform = 'translate3d(-' + (indice * passo()) + 'px,0,0)';
+          foco();
           if (!animar) void trilho.offsetHeight;
         }
         function marca() { var r = real(); for (var k = 0; k < pontos.children.length; k++) pontos.children[k].classList.toggle('on', k === r); }
