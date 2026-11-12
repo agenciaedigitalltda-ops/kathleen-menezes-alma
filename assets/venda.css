@@ -58,9 +58,9 @@
 .v-flutuante.on { opacity: 1; transform: none; pointer-events: auto; }
 .v-flutuante svg { width: 22px; height: 22px; fill: currentColor; flex: none; }
 @keyframes v-pulso {
-  0%   { box-shadow: 0 10px 30px rgba(0, 0, 0, .55), 0 0 0 0 color-mix(in srgb, var(--btn-1) 60%, transparent); }
-  70%  { box-shadow: 0 10px 30px rgba(0, 0, 0, .55), 0 0 0 16px color-mix(in srgb, var(--btn-1) 0%, transparent); }
-  100% { box-shadow: 0 10px 30px rgba(0, 0, 0, .55), 0 0 0 0 color-mix(in srgb, var(--btn-1) 0%, transparent); }
+  0%   { scale: 1;    box-shadow: 0 10px 30px rgba(0, 0, 0, .55), 0 0 0 0 color-mix(in srgb, var(--btn-1) 60%, transparent); }
+  60%  { scale: 1.04; box-shadow: 0 10px 30px rgba(0, 0, 0, .55), 0 0 0 16px color-mix(in srgb, var(--btn-1) 0%, transparent); }
+  100% { scale: 1;    box-shadow: 0 10px 30px rgba(0, 0, 0, .55), 0 0 0 0 color-mix(in srgb, var(--btn-1) 0%, transparent); }
 }
 @media (max-width: 560px) { .v-flutuante { left: 18px; right: 18px; } }
 @media (prefers-reduced-motion: reduce) { .v-flutuante { animation: none; } }
@@ -69,3 +69,13 @@
 .venda-page .btn, .v-flutuante { border-radius: 6px; font-family: var(--sans); font-weight: 600; font-size: 16px; letter-spacing: .2px; }
 .venda-page .btn-lg { min-height: 58px; padding: 0 30px; }
 .venda-page .btn svg { width: 22px; height: 22px; fill: currentColor; flex: none; }
+
+/* ---------- botões da abertura e da chamada final pulsando ---------- */
+.venda-page .v-hero .btn-primary, .venda-page .v-fim .btn-primary { animation: v-pulso-btn 2s ease-in-out infinite; }
+.venda-page .v-hero .btn-primary:hover, .venda-page .v-fim .btn-primary:hover { animation-play-state: paused; }
+@keyframes v-pulso-btn {
+  0%   { scale: 1;    box-shadow: 0 8px 24px -10px rgba(0, 0, 0, .6), 0 0 0 0 color-mix(in srgb, var(--btn-1) 55%, transparent); }
+  60%  { scale: 1.04; box-shadow: 0 8px 24px -10px rgba(0, 0, 0, .6), 0 0 0 16px color-mix(in srgb, var(--btn-1) 0%, transparent); }
+  100% { scale: 1;    box-shadow: 0 8px 24px -10px rgba(0, 0, 0, .6), 0 0 0 0 color-mix(in srgb, var(--btn-1) 0%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) { .venda-page .v-hero .btn-primary, .venda-page .v-fim .btn-primary { animation: none; } }
