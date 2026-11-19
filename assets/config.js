@@ -99,7 +99,7 @@ window.APP_CONFIG = {
     mensagemWhatsapp: "Oi, Kathleen! Vim pelo site e quero viver a experiência ALMA. Gostaria de solicitar um orçamento.",
     faixa: ["Ensaio gestante", "ALMA", "Kathleen Menezes"],   // frases que passam na faixa
     fotografa: {
-      foto: "",   // ex.: "assets/fotos/kathleen.jpg" — vazio = aparece um espaço reservado
+      foto: "assets/fotos/kathleen.jpg?v=202611181200",
       selo: "Quem vai te fotografar",
       titulo: "Prazer, eu sou a Kathleen",
       texto: "Sou fotógrafa de gestantes. O ALMA nasceu para registrar a mulher que gera uma vida: com direção leve, sensibilidade e todo o cuidado que esse momento merece."   // EDITAR: breve apresentação
@@ -109,11 +109,6 @@ window.APP_CONFIG = {
     bandas: [   // barras de foto de ponta a ponta: a foto "desce" dentro da barra conforme a página rola
       { id: "antesDasPerguntas", foto: "assets/fotos/carrossel/03.jpg?v=202611131700", posicao: "50% 19%" }
     ],
-    prova: {   // prints de depoimentos: coloque os arquivos em assets/fotos/provas/ e liste aqui. Vazio = espaço reservado (só aparece no modo revisão)
-      selo: "Depoimentos",
-      titulo: "Quem já viveu o ALMA",
-      imagens: []   // ex.: ["assets/fotos/provas/01.jpg", "assets/fotos/provas/02.jpg"]
-    },
     faq: {
       selo: "Dúvidas",
       titulo: "Perguntas frequentes",
